@@ -1,0 +1,12 @@
+{
+  "name": "kahl-dev-plugins",
+  "description": "Collection of Claude Code plugins by kahl-dev",
+  "plugins": [
+    {
+      "name": "smart-commit",
+      "path": ".",
+      "description": "Intelligent git commit workflow with auto-detection for Jira vs conventional commits",
+      "version": "1.0.0"
+    }
+  ]
+}
