@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "smart-commit",
-      "source": ".",
+      "source": "./",
       "description": "Intelligent git commit workflow with auto-detection for Jira vs conventional commits",
       "version": "1.0.0"
     }
