@@ -1,0 +1,8 @@
+{
+  "name": "smart-commit",
+  "description": "Intelligent git commit workflow with auto-detection for Jira vs conventional commits",
+  "version": "1.0.0",
+  "author": {
+    "name": "kahl-dev"
+  }
+}
