@@ -1,6 +1,6 @@
 ---
 name: smart-commit
-description: Intelligent git commit workflow with auto-detection for Jira vs conventional commit formats. Use when creating commits, staging changes, or when the user asks to commit code. Automatically analyzes project commit history to determine if Jira ticket integration is needed.
+description: Workflow to commit always the right way.
 ---
 
 # Smart Commit
@@ -30,6 +30,7 @@ git log --oneline -20 --pretty=format:"%s"
 ```
 
 **Analysis rules:**
+
 - Count commits matching Jira pattern: `[A-Z]+-[0-9]+`
 - If >50% have Jira tickets → **Jira Mode**
 - If <50% have Jira tickets → **Standard Mode**
@@ -56,6 +57,7 @@ When Jira mode is active, extract ticket ID using this priority:
 4. **Manual input** - Request ticket ID from user
 
 **Ticket validation:**
+
 - Must match pattern: `[A-Z]+-[0-9]+`
 - Examples: `LIA-123`, `PROJ-456`, `TASK-789`
 - Invalid: `lia-123`, `PROJ123`, `123-PROJ`
@@ -75,6 +77,7 @@ git log --oneline -5          # Recent commit context
 ### File Staging
 
 Stage relevant files based on changes:
+
 - Stage modified files shown in git status
 - Stage new files if appropriate
 - Exclude files that shouldn't be committed (secrets, temp files)
@@ -89,6 +92,7 @@ Stage relevant files based on changes:
 ```
 
 **Example:**
+
 ```bash
 git commit -m "feat(LIA-123): add user authentication"
 ```
@@ -100,6 +104,7 @@ git commit -m "feat(LIA-123): add user authentication"
 ```
 
 **Example:**
+
 ```bash
 git commit -m "feat: add user authentication"
 ```
@@ -128,6 +133,7 @@ Apply these rules for both modes:
 - Use present tense verbs
 
 **Validation checklist:**
+
 - ✅ No periods at the end
 - ✅ Starts with lowercase
 - ✅ Concise but descriptive
@@ -164,6 +170,7 @@ If hooks modify files:
 4. Otherwise: Create new commit (never amend others' commits)
 
 **Important:**
+
 - Never use `--no-verify` to skip hooks
 - Auto-stage hook modifications and retry
 - Amend only when safe (own commit, not pushed)
@@ -173,21 +180,25 @@ If hooks modify files:
 ### Common Error Scenarios
 
 **No changes to commit:**
+
 - Check git status first
 - Inform user: "No changes to commit"
 - Exit gracefully
 
 **Invalid ticket format:**
+
 - Validate against `[A-Z]+-[0-9]+` pattern
 - Ask for correction if invalid
 - Show example: "Expected format: PROJ-123"
 
 **Commit fails:**
+
 - Show exact error message
 - Suggest fixes (stage files, resolve conflicts)
 - Retry with corrected approach
 
 **Branch extraction fails:**
+
 - Fall back to checking last commit
 - Offer manual input
 - Allow switching to standard mode
@@ -207,6 +218,7 @@ When commit fails:
 ### Auto-Detection Examples
 
 **Scenario 1: Work project with Jira**
+
 ```
 git log shows: "feat(LIA-123): add auth", "fix(LIA-124): resolve bug"
 → Auto-detects Jira mode
@@ -215,6 +227,7 @@ git log shows: "feat(LIA-123): add auth", "fix(LIA-124): resolve bug"
 ```
 
 **Scenario 2: Personal project**
+
 ```
 git log shows: "feat: add auth", "fix: resolve login bug"
 → Auto-detects standard mode
@@ -222,6 +235,7 @@ git log shows: "feat: add auth", "fix: resolve login bug"
 ```
 
 **Scenario 3: Mixed project with override**
+
 ```
 User: "commit this with no-jira"
 → Forces standard mode regardless of history
@@ -231,18 +245,21 @@ User: "commit this with no-jira"
 ### User Interaction Examples
 
 **When ticket needed but not found:**
+
 ```
 "I need a Jira ticket ID for this commit.
 The last commit used LIA-456. Use this ticket? (y/N)"
 ```
 
 **When branch has ticket:**
+
 ```
 "Extracted LIA-123 from branch name 'feature/LIA-123-oauth'.
 Use this ticket? (y/N)"
 ```
 
 **When multiple files changed:**
+
 ```
 "I see changes to auth.ts, login.ts, and types.ts.
 Should I stage all three files? (Y/n)"
